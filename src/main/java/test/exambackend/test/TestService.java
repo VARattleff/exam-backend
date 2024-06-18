@@ -34,35 +34,35 @@ public class TestService {
         if (testDTO.getName() == null || testDTO.getName().isEmpty() || testDTO.getAge() < 0) {
             throw new ValidationException("Name and age must be provided");
         }
-        Test test = new Test();
-        test.setName(testDTO.getName());
-        test.setAge(testDTO.getAge());
-        testRepository.save(test);
-        return toDTO(test);
+        TestClass testClass = new TestClass();
+        testClass.setName(testDTO.getName());
+        testClass.setAge(testDTO.getAge());
+        testRepository.save(testClass);
+        return toDTO(testClass);
     }
 
     public TestDTO deleteTest(Long id) {
-        Test test = testRepository.findById(id).orElseThrow(() -> new NotFoundException("Test not found"));
+        TestClass testClass = testRepository.findById(id).orElseThrow(() -> new NotFoundException("Test not found"));
         testRepository.deleteById(id);
-        return toDTO(test);
+        return toDTO(testClass);
     }
 
     public TestDTO updateTest(Long id, TestDTO testDTO) {
-        Test test = testRepository.findById(id).orElseThrow(() -> new NotFoundException("Test not found"));
+        TestClass testClass = testRepository.findById(id).orElseThrow(() -> new NotFoundException("Test not found"));
         if (testDTO.getName() == null || testDTO.getName().isEmpty() || testDTO.getAge() < 0) {
             throw new ValidationException("Name and age must be provided");
         }
-        test.setName(testDTO.getName());
-        test.setAge(testDTO.getAge());
-        testRepository.save(test);
-        return toDTO(test);
+        testClass.setName(testDTO.getName());
+        testClass.setAge(testDTO.getAge());
+        testRepository.save(testClass);
+        return toDTO(testClass);
     }
 
-    private TestDTO toDTO(Test test) {
+    private TestDTO toDTO(TestClass testClass) {
         TestDTO testDTO = new TestDTO();
-        testDTO.setId(test.getId());
-        testDTO.setName(test.getName());
-        testDTO.setAge(test.getAge());
+        testDTO.setId(testClass.getId());
+        testDTO.setName(testClass.getName());
+        testDTO.setAge(testClass.getAge());
         return testDTO;
     }
 }
