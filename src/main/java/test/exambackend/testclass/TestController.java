@@ -1,4 +1,4 @@
-package test.exambackend.test;
+package test.exambackend.testclass;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

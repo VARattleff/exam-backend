@@ -1,4 +1,4 @@
-package test.exambackend.test;
+package test.exambackend.testclass;
 
 import org.springframework.stereotype.Service;
 import test.exambackend.errorhandling.exception.NotFoundException;

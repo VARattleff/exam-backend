@@ -1,4 +1,4 @@
-package test.exambackend.test;
+package test.exambackend.testclass;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
