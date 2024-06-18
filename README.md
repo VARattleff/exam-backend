@@ -1,34 +1,28 @@
-# ExamBackend Application
+# Exam backend
 
-Applikationnen er udviklet af Viktor Rattleff som en del af Programmering 2 24 timers eksamen.
+## KEA Datamatiker - 3rd Semester Programming 2 Exam, June 2024 (24-hour)
 
-<br/>
+### Segments
 
-## Indholdsfortegnelse
-- [Introduktion](#introduktion)
 - [Installation](#installation)
-- [Kørsel](#Kørsel)
+- [Running the application](#running-the-application)
 
-## Introduktion
+### Installation
 
-Dette projekt er en backend applikation designet til at demonstrere de færdigheder og teknikker, der er lært i Programmering 2 kurset.
-
-## Installation
-
-Følg disse trin for at installere og køre applikationen lokalt:
-
-1. Klon dette repository:
+1. Clone the repository
    ```bash
    git clone https://github.com/VARattleff/exam-backend
 
- 2. Naviger til projektmappen:
-    ```bash
-    cd ExamBackend
-    ```
+2. Enter the directory
+   ```bash
+   cd ExamBackend
+   ```
 
- ## Kørsel
+### running the application
 
-For at starte applikationen, følg disse trin:
+1. Set up environment variables
+2. Run the server in development mode
 
-1. Sørg for at have Java, Maven installeret og de nødvendige env-variabler konfigureret korrekt.
-2. Start projecet xD
+[Now the backend should be running on `http://localhost:8080/`](http://localhost:8080/)
+
+
