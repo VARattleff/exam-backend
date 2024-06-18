@@ -25,25 +25,10 @@ Følg disse trin for at installere og køre applikationen lokalt:
     ```bash
     cd ExamBackend
     ```
-    
-## Konfiguration 
-
-For at konfigurere applikationen skal du oprette en application.properties fil i src/main/resources mappen med følgende indhold:
-
-```properties
-spring.jpa.hibernate.ddl-auto=create-drop
-
-spring.datasource.url=${JDBC_DATABASE_URL}
-spring.datasource.username=${JDBC_USERNAME}
-spring.datasource.password=${JDBC_PASSWORD}
-
-spring.jpa.defer-datasource-initialization=true
-spring.sql.init.mode=always
-```
 
  ## Kørsel
 
 For at starte applikationen, følg disse trin:
 
-1. Sørg for at have Java og Maven installeret på din maskine.
+1. Sørg for at have Java, Maven installeret og de nødvendige env-variabler konfigureret korrekt.
 2. Start projecet xD
