@@ -2,11 +2,12 @@
 
 Applikationnen er udviklet af Viktor Rattleff som en del af Programmering 2 24 timers eksamen.
 
-<hr/>
+<br/>
 
 ## Indholdsfortegnelse
 - [Introduktion](#introduktion)
 - [Installation](#installation)
+- [Kørsel](#Kørsel)
 
 ## Introduktion
 
