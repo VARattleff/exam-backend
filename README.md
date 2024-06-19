@@ -19,7 +19,7 @@
    cd ExamBackend
    ```
 
-### running the application
+### Running the application
 
 1. Set up environment variables
 2. Run the Application
