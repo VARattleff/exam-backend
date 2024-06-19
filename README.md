@@ -12,6 +12,7 @@
 1. Clone the repository
    ```bash
    git clone https://github.com/VARattleff/exam-backend
+   ```
 
 2. Enter the directory
    ```bash
@@ -21,7 +22,7 @@
 ### running the application
 
 1. Set up environment variables
-2. Run the server in development mode
+2. Run the Application
 
 [Now the backend should be running on `http://localhost:8080/`](http://localhost:8080/)
 
