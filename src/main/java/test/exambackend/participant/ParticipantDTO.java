@@ -13,4 +13,5 @@ public class ParticipantDTO {
     private int age;
     private Gender gender;
     private String adjacentClub;
+    private AgeGroup ageGroup;
 }

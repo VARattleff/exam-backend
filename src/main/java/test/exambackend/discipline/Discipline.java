@@ -1,4 +1,4 @@
-package test.exambackend.participant;
+package test.exambackend.discipline;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,13 +12,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Participant {
+public class Discipline {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String fullName;
-    private Gender gender;
-    private int age;
-    private String adjacentClub;
-    private AgeGroup ageGroup;
+    private String name;
+    private String description;
+    private ResultsType resultsType;
 }
