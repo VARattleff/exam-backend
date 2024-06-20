@@ -1,10 +1,11 @@
 package test.exambackend.participant;
 
 import org.springframework.stereotype.Service;
+import test.exambackend.discipline.DiciplineRepository;
+import test.exambackend.discipline.Discipline;
 import test.exambackend.discipline.DisciplineDTO;
 import test.exambackend.errorhandling.exception.NotFoundException;
 import test.exambackend.errorhandling.exception.ValidationException;
-import test.exambackend.testclass.TestDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,9 +14,12 @@ import java.util.stream.Collectors;
 @Service
 public class ParticipantService {
     ParticipantRepository participantRepository;
+    DiciplineRepository diciplineRepository;
 
-    public ParticipantService(ParticipantRepository participantRepository) {
+    public ParticipantService(ParticipantRepository participantRepository, DiciplineRepository diciplineRepository) {
         this.participantRepository = participantRepository;
+        this.diciplineRepository = diciplineRepository;
+
     }
 
     public List<ParticipantDTO> findAll() {
@@ -35,6 +39,39 @@ public class ParticipantService {
 
         return participantOptional.map(this::toDTO);
     }
+
+
+
+    public ParticipantDTO createParticipant(ParticipantDTO participantDTO) {
+        if (
+                participantDTO.getFullName() == null ||
+                participantDTO.getFullName().isEmpty() ||
+                participantDTO.getAge() < 0 ||
+                participantDTO.getGender() == null ||
+                participantDTO.getAdjacentClub() == null ||
+                participantDTO.getCountry() == null
+            )
+
+        {
+            throw new ValidationException("fullName, age, gender, adjacentClub and country must be provided");
+        }
+
+
+        List<Discipline> disciplines = participantDTO.getDisciplines().stream()
+                .map(disciplineDTO -> diciplineRepository.findById(disciplineDTO.getId())
+                        .orElseThrow(() -> new NotFoundException("Discipline not found")))
+                .toList();
+
+        Participant participant = toEntity(participantDTO);
+        participant.calculateAndSetAgeGroup();
+        participant.setDisciplines(disciplines);
+        participantRepository.save(participant);
+
+        return toDTO(participant);
+
+    }
+
+
 
     public ParticipantDTO toDTO(Participant participant) {
         ParticipantDTO participantDTO = new ParticipantDTO();
@@ -57,6 +94,17 @@ public class ParticipantService {
         }).collect(Collectors.toList()));
 
         return participantDTO;
+    }
+
+    public Participant toEntity(ParticipantDTO participantDTO) {
+        Participant participant = new Participant();
+        participant.setId(participantDTO.getId());
+        participant.setFullName(participantDTO.getFullName());
+        participant.setAge(participantDTO.getAge());
+        participant.setGender(participantDTO.getGender());
+        participant.setAdjacentClub(participantDTO.getAdjacentClub());
+        participant.setCountry(participantDTO.getCountry());
+        return participant;
     }
 
 }

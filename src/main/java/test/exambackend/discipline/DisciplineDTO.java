@@ -17,6 +17,5 @@ public class DisciplineDTO {
     private String name;
     private String description;
     private ResultsType resultsType;
-    @JsonManagedReference
     private List<ParticipantDTO> participants = new ArrayList<>();
 }

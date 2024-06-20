@@ -1,5 +1,6 @@
 package test.exambackend.participant;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,5 @@ public class ParticipantDTO {
     private String adjacentClub;
     private AgeGroup ageGroup;
     private Country country;
-    @JsonManagedReference
     private List<DisciplineDTO> disciplines = new ArrayList<>();
 }

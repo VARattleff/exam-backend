@@ -7,6 +7,7 @@ import lombok.Setter;
 import test.exambackend.discipline.Discipline;
 import test.exambackend.result.Result;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,4 +32,19 @@ public class Participant {
     private List<Discipline> disciplines = new ArrayList<>();
     @OneToMany(fetch = FetchType.EAGER)
     private List<Result> results;
+
+    public void calculateAndSetAgeGroup() {
+        if (age >= 6 && age <= 9) {
+            this.ageGroup = AgeGroup.KIDS;
+        } else if (age >= 10 && age <= 13) {
+            this.ageGroup = AgeGroup.YOUTH;
+        } else if (age >= 14 && age <= 22) {
+            this.ageGroup = AgeGroup.JUNIOR;
+        } else if (age >= 23 && age <= 40) {
+            this.ageGroup = AgeGroup.ADULT;
+        } else {
+            this.ageGroup = AgeGroup.SENIOR;
+        }
+    }
+
 }
