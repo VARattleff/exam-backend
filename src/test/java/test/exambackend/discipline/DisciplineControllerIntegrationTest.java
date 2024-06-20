@@ -23,7 +23,7 @@ import static org.mockito.Mockito.*;
 @ComponentScan(basePackageClasses = {DisciplineService.class})
 public class DisciplineControllerIntegrationTest {
     @MockBean
-    DiciplineRepository disciplineRepository;
+    DisciplineRepository disciplineRepository;
 
     @Autowired
     WebTestClient webClient;

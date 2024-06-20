@@ -1,25 +1,28 @@
+// ResultDTO.java
 package test.exambackend.result;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import test.exambackend.discipline.DisciplineDTO;
-import test.exambackend.participant.ParticipantDTO;
+import test.exambackend.discipline.ResultsType;
+import test.exambackend.participant.AgeGroup;
+import test.exambackend.participant.Gender;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class ResultDTO {
     private long id;
+    private String disciplineName;
+    private ResultsType resultsType;
+    private String resultValue;
     private LocalDate resultDate;
-    private LocalTime timeValue;
-    private Double distanceValue;
-    private Double pointValue;
-    @JsonManagedReference
-    private ParticipantDTO participant;
-    private DisciplineDTO discipline;
+    private String participantName;
+    private AgeGroup ageGroup;
+    private Gender gender;
+    private String adjacentClub;
+
 }

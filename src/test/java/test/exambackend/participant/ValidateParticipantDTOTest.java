@@ -3,7 +3,7 @@ package test.exambackend.participant;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import test.exambackend.discipline.DiciplineRepository;
+import test.exambackend.discipline.DisciplineRepository;
 import test.exambackend.errorhandling.exception.ValidationException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,8 +15,8 @@ class ValidateParticipantDTOTest {
     @BeforeEach
     void setUp() {
         ParticipantRepository participantRepository = Mockito.mock(ParticipantRepository.class);
-        DiciplineRepository diciplineRepository = Mockito.mock(DiciplineRepository.class);
-        participantService = new ParticipantService(participantRepository, diciplineRepository);
+        DisciplineRepository disciplineRepository = Mockito.mock(DisciplineRepository.class);
+        participantService = new ParticipantService(participantRepository, disciplineRepository);
     }
 
     @Test

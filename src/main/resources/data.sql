@@ -30,17 +30,17 @@ VALUES
     (4, 3);
 
 
-INSERT INTO result (result_date, time_value, distance_value, point_value, participant_id, discipline_id)
+INSERT INTO result (result_date, hours, minutes, seconds, hundredths, meters, centimeters, point_value, participant_id, discipline_id)
 VALUES
-    ('2022-01-01', '00:10:00', NULL, 10.0, 1, 1),
-    ('2022-01-02', NULL, 100.0, 20.0, 2, 2),
-    ('2022-01-03', NULL, NULL, 30.0, 1, 3),
-    ('2022-01-04', '00:12:00', NULL, 15.0, 2, 1),
-    ('2022-01-05', NULL, 120.0, 25.0, 1, 2),
-    ('2022-01-06', NULL, NULL, 35.0, 2, 3),
-    ('2022-01-07', '00:09:00', NULL, 20.0, 3, 1),
-    ('2022-01-08', NULL, 110.0, 22.0, 4, 2),
-    ('2022-01-09', NULL, NULL, 32.0, 3, 3),
-    ('2022-01-10', '00:11:00', NULL, 18.0, 4, 1);
+    ('2022-01-01', 0, 10, 0, 0, NULL, NULL, 10.0, 1, 1),
+    ('2022-01-02', NULL, NULL, NULL, NULL, 100, 0, 20.0, 2, 2),
+    ('2022-01-03', NULL, NULL, NULL, NULL, NULL, NULL, 30.0, 1, 3),
+    ('2022-01-04', 0, 12, 0, 0, NULL, NULL, 15.0, 2, 1),
+    ('2022-01-05', NULL, NULL, NULL, NULL, 120, 0, 25.0, 1, 2),
+    ('2022-01-06', NULL, NULL, NULL, NULL, NULL, NULL, 35.0, 2, 3),
+    ('2022-01-07', 0, 9, 0, 0, NULL, NULL, 20.0, 3, 1),
+    ('2022-01-08', NULL, NULL, NULL, NULL, 110, 0, 22.0, 4, 2),
+    ('2022-01-09', NULL, NULL, NULL, NULL, NULL, NULL, 32.0, 3, 3),
+    ('2022-01-10', 0, 11, 0, 0, NULL, NULL, 18.0, 4, 1);
 
 

@@ -1,7 +1,7 @@
 package test.exambackend.participant;
 
 import org.springframework.stereotype.Service;
-import test.exambackend.discipline.DiciplineRepository;
+import test.exambackend.discipline.DisciplineRepository;
 import test.exambackend.discipline.Discipline;
 import test.exambackend.discipline.DisciplineDTO;
 import test.exambackend.errorhandling.exception.NotFoundException;
@@ -14,11 +14,11 @@ import java.util.stream.Collectors;
 @Service
 public class ParticipantService {
     ParticipantRepository participantRepository;
-    DiciplineRepository diciplineRepository;
+    DisciplineRepository disciplineRepository;
 
-    public ParticipantService(ParticipantRepository participantRepository, DiciplineRepository diciplineRepository) {
+    public ParticipantService(ParticipantRepository participantRepository, DisciplineRepository disciplineRepository) {
         this.participantRepository = participantRepository;
-        this.diciplineRepository = diciplineRepository;
+        this.disciplineRepository = disciplineRepository;
     }
 
     /**
@@ -75,7 +75,7 @@ public class ParticipantService {
         validateParticipantDTO(participantDTO);
 
         List<Discipline> disciplines = participantDTO.getDisciplines().stream()
-                .map(disciplineDTO -> diciplineRepository.findById(disciplineDTO.getId())
+                .map(disciplineDTO -> disciplineRepository.findById(disciplineDTO.getId())
                         .orElseThrow(() -> new NotFoundException("Discipline not found, provided id: " + disciplineDTO.getId())))
                 .toList();
 
@@ -113,7 +113,7 @@ public class ParticipantService {
         validateParticipantDTO(participantDTO);
 
         List<Discipline> disciplines = participantDTO.getDisciplines().stream()
-                .map(disciplineDTO -> diciplineRepository.findById(disciplineDTO.getId())
+                .map(disciplineDTO -> disciplineRepository.findById(disciplineDTO.getId())
                         .orElseThrow(() -> new NotFoundException("Discipline not found, provided id: " + disciplineDTO.getId())))
                 .toList();
 

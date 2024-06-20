@@ -14,9 +14,9 @@ public class ValidateDisciplineDTOTest {
 
     @BeforeEach
     void setUp() {
-        DiciplineRepository diciplineRepository = Mockito.mock(DiciplineRepository.class);
+        DisciplineRepository disciplineRepository = Mockito.mock(DisciplineRepository.class);
         ParticipantRepository participantRepository = Mockito.mock(ParticipantRepository.class);
-        disciplineService = new DisciplineService(diciplineRepository, participantRepository);
+        disciplineService = new DisciplineService(disciplineRepository, participantRepository);
     }
 
 
