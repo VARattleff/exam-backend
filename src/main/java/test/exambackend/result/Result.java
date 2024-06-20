@@ -31,6 +31,8 @@ public class Result {
 
     private Integer points;
 
+    private String resultValue;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private Participant participant;
     @ManyToOne(fetch = FetchType.EAGER)

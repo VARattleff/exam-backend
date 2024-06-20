@@ -1,9 +1,7 @@
 package test.exambackend.result;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,15 +14,20 @@ public class ResultController {
         this.resultService = resultService;
     }
 
-    //todo get all results
     @GetMapping
-    public ResponseEntity<List<ResultDTO>> findAll () {
+    public ResponseEntity<List<ResResultDTO>> findAll () {
         return ResponseEntity.ok(resultService.findAll());
     }
 
-    //todo get result by id
+    @GetMapping("/{id}")
+    public ResponseEntity<ResResultDTO> findById (@PathVariable Long id) {
+        return ResponseEntity.of(resultService.findById(id));
+    }
 
-    //todo get result by discipline id
+    @PostMapping
+    public ResponseEntity<ResResultDTO> createResult (@RequestBody ReqResultDTO reqResultDTO) {
+        return ResponseEntity.status(201).body(resultService.createResult(reqResultDTO));
+    }
 
     //todo create result
 
