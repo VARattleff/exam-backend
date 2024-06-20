@@ -29,8 +29,6 @@ public class ResultController {
         return ResponseEntity.status(201).body(resultService.createResult(reqResultDTO));
     }
 
-    //todo create result
-
     //todo delete result
 
     //todo update result

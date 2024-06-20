@@ -34,9 +34,13 @@ public class ResultService {
         }
 
         Optional<Result> resultOptional = resultRepository.findById(id);
+
+        if (resultOptional.isEmpty()) {
+            throw new NotFoundException("Result not found, provided id: " + id);
+        }
+
         return resultOptional.map(this::toDTO);
     }
-
 
 
     private String generateResultValue(Result result) {
@@ -74,16 +78,38 @@ public class ResultService {
         return resResultDTO;
     }
 
-    public ResResultDTO createResult(ReqResultDTO reqResultDTO) {
+    private void validateAndSetParticipantAndDiscipline(ReqResultDTO reqResultDTO, Result result) {
+        if (reqResultDTO == null) {
+            throw new ValidationException("Request body cannot be null");
+        }
+
+        if (reqResultDTO.getParticipantId() == null || reqResultDTO.getParticipantId() < 0) {
+            throw new ValidationException("Invalid participant id,  provided id:" + reqResultDTO.getParticipantId());
+        }
+
+        if (reqResultDTO.getDisciplineId() == null || reqResultDTO.getDisciplineId() < 0) {
+            throw new ValidationException("Invalid discipline id provided id:" + reqResultDTO.getDisciplineId());
+        }
+
         Participant participant = participantRepository.findById(reqResultDTO.getParticipantId())
-                .orElseThrow(() -> new NotFoundException("Participant not found"));
+                .orElseThrow(() -> new NotFoundException("Participant not found with provided id: " + reqResultDTO.getParticipantId()));
 
         Discipline discipline = disciplineRepository.findById(reqResultDTO.getDisciplineId())
-                .orElseThrow(() -> new NotFoundException("Discipline not found"));
+                .orElseThrow(() -> new NotFoundException("Discipline not found with provided id: " + reqResultDTO.getDisciplineId()));
 
-        Result result = new Result();
+        if (!participant.getDisciplines().contains(discipline)) {
+            throw new ValidationException("Participant is not part of the provided discipline");
+        }
+
         result.setParticipant(participant);
         result.setDiscipline(discipline);
+    }
+
+    public ResResultDTO createResult(ReqResultDTO reqResultDTO) {
+        Result result = new Result();
+
+        validateAndSetParticipantAndDiscipline(reqResultDTO, result);
+
         result.setResultDate(reqResultDTO.getResultDate());
         result.setHours(reqResultDTO.getHours());
         result.setMinutes(reqResultDTO.getMinutes());
@@ -93,7 +119,14 @@ public class ResultService {
         result.setCentimeters(reqResultDTO.getCentimeters());
         result.setPoints(reqResultDTO.getPoints());
 
+        Result savedResult;
 
-        return toDTO(resultRepository.save(result));
+        try {
+            savedResult = resultRepository.save(result);
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while saving the result", e);
+        }
+
+        return toDTO(savedResult);
     }
 }
