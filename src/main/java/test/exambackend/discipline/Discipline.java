@@ -21,6 +21,6 @@ public class Discipline {
     private String description;
     @Enumerated(EnumType.STRING)
     private ResultsType resultsType;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     private List<Participant> participants = new ArrayList<>();
 }
