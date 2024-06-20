@@ -109,4 +109,33 @@ public class ParticipantService {
         participantRepository.deleteById(id);
         return participantDTO;
     }
+
+    public ParticipantDTO updateParticipant(Long id, ParticipantDTO participantDTO) {
+        Participant existingParticipant = participantRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Participant not found, provided id: " + id));
+
+        if (
+                participantDTO.getFullName() == null ||
+                        participantDTO.getFullName().isEmpty() ||
+                        participantDTO.getAge() < 0 ||
+                        participantDTO.getGender() == null ||
+                        participantDTO.getAdjacentClub() == null ||
+                        participantDTO.getCountry() == null
+        ) {
+            throw new ValidationException("fullName, age, gender, adjacentClub and country must be provided");
+        }
+
+        List<Discipline> disciplines = participantDTO.getDisciplines().stream()
+                .map(disciplineDTO -> diciplineRepository.findById(disciplineDTO.getId())
+                        .orElseThrow(() -> new NotFoundException("Discipline not found, provided id: " + disciplineDTO.getId())))
+                .toList();
+
+        Participant participantToUpdate = toEntity(participantDTO);
+        participantToUpdate.setId(existingParticipant.getId());
+        participantToUpdate.calculateAndSetAgeGroup();
+        participantToUpdate.setDisciplines(disciplines);
+        participantRepository.save(participantToUpdate);
+
+        return toDTO(participantToUpdate);
+    }
 }

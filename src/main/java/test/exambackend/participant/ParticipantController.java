@@ -35,7 +35,8 @@ public class ParticipantController {
         return ResponseEntity.ok(participantService.deleteParticipant(id));
     }
 
-    //todo: delete deltager(id)
-
-    //todo: put deltager(id)
+    @PutMapping("/{id}")
+    public ResponseEntity<ParticipantDTO> updateParticipant (@PathVariable Long id, @RequestBody ParticipantDTO participantDTO) {
+        return ResponseEntity.ok(participantService.updateParticipant(id, participantDTO));
+    }
 }
