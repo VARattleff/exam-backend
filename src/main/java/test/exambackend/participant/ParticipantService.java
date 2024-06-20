@@ -22,6 +22,23 @@ public class ParticipantService {
     }
 
     /**
+     * Validate ParticipantDTO
+     * @param participantDTO ParticipantDTO
+     */
+    public void validateParticipantDTO(ParticipantDTO participantDTO) {
+        if (
+                participantDTO.getFullName() == null ||
+                        participantDTO.getFullName().isEmpty() ||
+                        participantDTO.getAge() < 0 ||
+                        participantDTO.getGender() == null ||
+                        participantDTO.getAdjacentClub() == null ||
+                        participantDTO.getCountry() == null
+        ) {
+            throw new ValidationException("fullName, age, gender, adjacentClub and country must be provided");
+        }
+    }
+
+    /**
      * Find all participants
      * @return List of ParticipantDTO
      */
@@ -54,18 +71,8 @@ public class ParticipantService {
      * @return ParticipantDTO
      */
     public ParticipantDTO createParticipant(ParticipantDTO participantDTO) {
-        if (
-                participantDTO.getFullName() == null ||
-                participantDTO.getFullName().isEmpty() ||
-                participantDTO.getAge() < 0 ||
-                participantDTO.getGender() == null ||
-                participantDTO.getAdjacentClub() == null ||
-                participantDTO.getCountry() == null
-            )
 
-        {
-            throw new ValidationException("fullName, age, gender, adjacentClub and country must be provided");
-        }
+        validateParticipantDTO(participantDTO);
 
         List<Discipline> disciplines = participantDTO.getDisciplines().stream()
                 .map(disciplineDTO -> diciplineRepository.findById(disciplineDTO.getId())
@@ -103,16 +110,7 @@ public class ParticipantService {
         Participant existingParticipant = participantRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Participant not found, provided id: " + id));
 
-        if (
-                participantDTO.getFullName() == null ||
-                        participantDTO.getFullName().isEmpty() ||
-                        participantDTO.getAge() < 0 ||
-                        participantDTO.getGender() == null ||
-                        participantDTO.getAdjacentClub() == null ||
-                        participantDTO.getCountry() == null
-        ) {
-            throw new ValidationException("fullName, age, gender, adjacentClub and country must be provided");
-        }
+        validateParticipantDTO(participantDTO);
 
         List<Discipline> disciplines = participantDTO.getDisciplines().stream()
                 .map(disciplineDTO -> diciplineRepository.findById(disciplineDTO.getId())

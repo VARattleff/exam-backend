@@ -2,15 +2,6 @@
 CREATE SCHEMA IF NOT EXISTS exam_db;
 
 
-INSERT INTO test_class (name, age)
-VALUES
-    ('John', 25),
-    ('Jane', 30),
-    ('Doe', 35),
-    ('Alice', 28),
-    ('Bob', 32);
-
-
 INSERT INTO participant (full_name, gender, age, adjacent_club, age_group, country)
 VALUES
     ('John Doe', 'MALE', 25, 'Club A', 'ADULT', 'DENMARK'),

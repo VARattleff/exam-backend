@@ -8,3 +8,4 @@ public class ValidationException extends RuntimeException {
         super("Validation error: " + message);
     }
 }
+
