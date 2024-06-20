@@ -23,5 +23,4 @@ public class ResResultDTO {
     private AgeGroup ageGroup;
     private Gender gender;
     private String adjacentClub;
-
 }

@@ -24,10 +24,19 @@ public class ResultService {
         this.participantRepository = participantRepository;
     }
 
+    /**
+     * Find all results
+     * @return List of ResResultDTO
+     */
     public List<ResResultDTO> findAll() {
         return resultRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
     }
 
+    /**
+     * Find result by id
+     * @param id Long
+     * @return Optional of ResResultDTO
+     */
     public Optional<ResResultDTO> findById(Long id) {
         if (id == null || id < 0) {
             throw new ValidationException("Id must be provided");
@@ -42,6 +51,11 @@ public class ResultService {
         return resultOptional.map(this::toDTO);
     }
 
+    /**
+     * Generate result value based on the discipline's result type
+     * @param result Result
+     * @return String
+     */
     private String generateResultValue(Result result) {
         switch (result.getDiscipline().getResultsType()) {
             case TIME:
@@ -59,24 +73,11 @@ public class ResultService {
         }
     }
 
-    public ResResultDTO toDTO(Result result) {
-        ResResultDTO resResultDTO = new ResResultDTO();
-        resResultDTO.setId(result.getId());
-        resResultDTO.setDisciplineName(result.getDiscipline().getName());
-        resResultDTO.setAgeGroup(result.getParticipant().getAgeGroup());
-        resResultDTO.setResultsType(result.getDiscipline().getResultsType());
-        resResultDTO.setResultDate(result.getResultDate());
-        resResultDTO.setGender(result.getParticipant().getGender());
-        resResultDTO.setAdjacentClub(result.getParticipant().getAdjacentClub());
-
-        resResultDTO.setResultValue(generateResultValue(result));
-
-
-        resResultDTO.setParticipantName(result.getParticipant().getFullName());
-
-        return resResultDTO;
-    }
-
+    /**
+     * Validate and set participant and discipline for the result
+     * @param reqResultDTO ReqResultDTO
+     * @param result Result
+     */
     private void validateAndSetParticipantAndDiscipline(ReqResultDTO reqResultDTO, Result result) {
         if (reqResultDTO == null) {
             throw new ValidationException("Request body cannot be null");
@@ -104,6 +105,11 @@ public class ResultService {
         result.setDiscipline(discipline);
     }
 
+    /**
+     * Create a new result
+     * @param reqResultDTO ReqResultDTO
+     * @return ResResultDTO
+     */
     public ResResultDTO createResult(ReqResultDTO reqResultDTO) {
         Result result = new Result();
 
@@ -129,6 +135,11 @@ public class ResultService {
         return toDTO(savedResult);
     }
 
+    /**
+     * Delete result by id
+     * @param id Long
+     * @return ResResultDTO
+     */
     public ResResultDTO deleteResult(Long id) {
         Result result = resultRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Result not found with provided id: " + id));
@@ -138,6 +149,12 @@ public class ResultService {
         return toDTO(result);
     }
 
+    /**
+     * Update result by id
+     * @param id Long
+     * @param reqResultDTO ReqResultDTO
+     * @return ResResultDTO
+     */
     public ResResultDTO updateResult(Long id, ReqResultDTO reqResultDTO) {
         Result result = resultRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Result not found with provided id: " + id));
@@ -163,4 +180,28 @@ public class ResultService {
 
         return toDTO(savedResult);
     }
+
+    /**
+     * Convert Result to ResResultDTO
+     * @param result Result
+     * @return ResResultDTO
+     */
+    public ResResultDTO toDTO(Result result) {
+        ResResultDTO resResultDTO = new ResResultDTO();
+        resResultDTO.setId(result.getId());
+        resResultDTO.setDisciplineName(result.getDiscipline().getName());
+        resResultDTO.setAgeGroup(result.getParticipant().getAgeGroup());
+        resResultDTO.setResultsType(result.getDiscipline().getResultsType());
+        resResultDTO.setResultDate(result.getResultDate());
+        resResultDTO.setGender(result.getParticipant().getGender());
+        resResultDTO.setAdjacentClub(result.getParticipant().getAdjacentClub());
+
+        resResultDTO.setResultValue(generateResultValue(result));
+
+
+        resResultDTO.setParticipantName(result.getParticipant().getFullName());
+
+        return resResultDTO;
+    }
+
 }
