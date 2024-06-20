@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/disciplines")
 public class DisciplineController {
-    private final DisciplineService disciplineService;
+    DisciplineService disciplineService;
 
     public DisciplineController(DisciplineService disciplineService) {
         this.disciplineService = disciplineService;

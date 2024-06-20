@@ -25,6 +25,8 @@ public class Participant {
     private String adjacentClub;
     @Enumerated(EnumType.STRING)
     private AgeGroup ageGroup;
+    @Enumerated(EnumType.STRING)
+    private Country country;
     @ManyToMany
     private List<Discipline> disciplines = new ArrayList<>();
     @OneToMany(fetch = FetchType.EAGER)

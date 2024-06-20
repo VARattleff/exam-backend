@@ -20,8 +20,7 @@ public class ParticipantDTO {
     private Gender gender;
     private String adjacentClub;
     private AgeGroup ageGroup;
+    private Country country;
     @JsonManagedReference
     private List<DisciplineDTO> disciplines = new ArrayList<>();
-    @JsonManagedReference
-    private List <ResultDTO> results = new ArrayList<>();
 }
