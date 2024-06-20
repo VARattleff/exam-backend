@@ -19,7 +19,6 @@ public class ParticipantService {
     public ParticipantService(ParticipantRepository participantRepository, DiciplineRepository diciplineRepository) {
         this.participantRepository = participantRepository;
         this.diciplineRepository = diciplineRepository;
-
     }
 
     public List<ParticipantDTO> findAll() {
@@ -34,7 +33,7 @@ public class ParticipantService {
         Optional<Participant> participantOptional = participantRepository.findById(id);
 
         if (participantOptional.isEmpty()) {
-            throw new NotFoundException("Participant not found");
+            throw new NotFoundException("Participant not found, provided id: " + id);
         }
 
         return participantOptional.map(this::toDTO);
@@ -56,10 +55,9 @@ public class ParticipantService {
             throw new ValidationException("fullName, age, gender, adjacentClub and country must be provided");
         }
 
-
         List<Discipline> disciplines = participantDTO.getDisciplines().stream()
                 .map(disciplineDTO -> diciplineRepository.findById(disciplineDTO.getId())
-                        .orElseThrow(() -> new NotFoundException("Discipline not found")))
+                        .orElseThrow(() -> new NotFoundException("Discipline not found, provided id: " + disciplineDTO.getId())))
                 .toList();
 
         Participant participant = toEntity(participantDTO);
@@ -68,10 +66,7 @@ public class ParticipantService {
         participantRepository.save(participant);
 
         return toDTO(participant);
-
     }
-
-
 
     public ParticipantDTO toDTO(Participant participant) {
         ParticipantDTO participantDTO = new ParticipantDTO();
@@ -107,4 +102,11 @@ public class ParticipantService {
         return participant;
     }
 
+    public ParticipantDTO deleteParticipant(Long id) {
+        Participant participant = participantRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Participant not found, provided id: " + id));
+        ParticipantDTO participantDTO = toDTO(participant);
+        participantRepository.deleteById(id);
+        return participantDTO;
+    }
 }

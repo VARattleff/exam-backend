@@ -30,7 +30,10 @@ public class ParticipantController {
         return ResponseEntity.status(201).body(participantService.createParticipant(participantDTO));
     }
 
-    //todo: post deltager
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ParticipantDTO> deleteParticipant (@PathVariable Long id) {
+        return ResponseEntity.ok(participantService.deleteParticipant(id));
+    }
 
     //todo: delete deltager(id)
 
