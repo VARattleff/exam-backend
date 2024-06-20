@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 
 public class ValidateAndSetParticipantAndDisciplineTest {
 
-    private ResultService resultService;
+    ResultService resultService;
 
     @BeforeEach
     void setUp() {

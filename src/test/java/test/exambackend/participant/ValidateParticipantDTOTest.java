@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ValidateParticipantDTOTest {
 
-    private ParticipantService participantService;
+    ParticipantService participantService;
 
     @BeforeEach
     void setUp() {
