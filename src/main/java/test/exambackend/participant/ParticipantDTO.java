@@ -1,8 +1,14 @@
 package test.exambackend.participant;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import test.exambackend.discipline.DisciplineDTO;
+import test.exambackend.result.ResultDTO;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,4 +20,8 @@ public class ParticipantDTO {
     private Gender gender;
     private String adjacentClub;
     private AgeGroup ageGroup;
+    @JsonManagedReference
+    private List<DisciplineDTO> disciplines = new ArrayList<>();
+    @JsonManagedReference
+    private List <ResultDTO> results = new ArrayList<>();
 }
