@@ -2,8 +2,10 @@ package test.exambackend.participant;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import test.exambackend.testclass.TestDTO;
 
 import java.util.List;
 
@@ -16,10 +18,14 @@ public class ParticipantController {
         this.participantService = participantService;
     }
 
-    //todo: get deltager
     @GetMapping
     public ResponseEntity<List<ParticipantDTO>> findAll () {
         return ResponseEntity.ok(participantService.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ParticipantDTO> findById (@PathVariable Long id) {
+        return ResponseEntity.of(participantService.findById(id));
     }
 
     //todo: get deltagerer(id)

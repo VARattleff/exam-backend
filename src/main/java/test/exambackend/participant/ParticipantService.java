@@ -2,8 +2,12 @@ package test.exambackend.participant;
 
 import org.springframework.stereotype.Service;
 import test.exambackend.discipline.DisciplineDTO;
+import test.exambackend.errorhandling.exception.NotFoundException;
+import test.exambackend.errorhandling.exception.ValidationException;
+import test.exambackend.testclass.TestDTO;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,6 +20,20 @@ public class ParticipantService {
 
     public List<ParticipantDTO> findAll() {
         return participantRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    public Optional<ParticipantDTO> findById(Long id) {
+        if (id == null || id < 0) {
+            throw new ValidationException("Id must be provided");
+        }
+
+        Optional<Participant> participantOptional = participantRepository.findById(id);
+
+        if (participantOptional.isEmpty()) {
+            throw new NotFoundException("Participant not found");
+        }
+
+        return participantOptional.map(this::toDTO);
     }
 
     public ParticipantDTO toDTO(Participant participant) {
