@@ -137,4 +137,30 @@ public class ResultService {
 
         return toDTO(result);
     }
+
+    public ResResultDTO updateResult(Long id, ReqResultDTO reqResultDTO) {
+        Result result = resultRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Result not found with provided id: " + id));
+
+        validateAndSetParticipantAndDiscipline(reqResultDTO, result);
+
+        result.setResultDate(reqResultDTO.getResultDate());
+        result.setHours(reqResultDTO.getHours());
+        result.setMinutes(reqResultDTO.getMinutes());
+        result.setSeconds(reqResultDTO.getSeconds());
+        result.setHundredths(reqResultDTO.getHundredths());
+        result.setMeters(reqResultDTO.getMeters());
+        result.setCentimeters(reqResultDTO.getCentimeters());
+        result.setPoints(reqResultDTO.getPoints());
+
+        Result savedResult;
+
+        try {
+            savedResult = resultRepository.save(result);
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while saving the result", e);
+        }
+
+        return toDTO(savedResult);
+    }
 }

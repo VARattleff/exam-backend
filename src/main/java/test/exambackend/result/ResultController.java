@@ -34,5 +34,8 @@ public class ResultController {
         return ResponseEntity.ok(resultService.deleteResult(id));
     }
 
-    //todo update result
+    @PutMapping("/{id}")
+    public ResponseEntity<ResResultDTO> updateResult (@PathVariable Long id, @RequestBody ReqResultDTO reqResultDTO) {
+        return ResponseEntity.ok(resultService.updateResult(id, reqResultDTO));
+    }
 }
