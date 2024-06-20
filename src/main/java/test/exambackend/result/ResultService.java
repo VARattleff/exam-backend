@@ -42,7 +42,6 @@ public class ResultService {
         return resultOptional.map(this::toDTO);
     }
 
-
     private String generateResultValue(Result result) {
         switch (result.getDiscipline().getResultsType()) {
             case TIME:
@@ -128,5 +127,14 @@ public class ResultService {
         }
 
         return toDTO(savedResult);
+    }
+
+    public ResResultDTO deleteResult(Long id) {
+        Result result = resultRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Result not found with provided id: " + id));
+
+        resultRepository.deleteById(id);
+
+        return toDTO(result);
     }
 }

@@ -29,7 +29,10 @@ public class ResultController {
         return ResponseEntity.status(201).body(resultService.createResult(reqResultDTO));
     }
 
-    //todo delete result
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResResultDTO> deleteResult (@PathVariable Long id) {
+        return ResponseEntity.ok(resultService.deleteResult(id));
+    }
 
     //todo update result
 }
