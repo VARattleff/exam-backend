@@ -33,6 +33,9 @@ public class Participant {
     @OneToMany(fetch = FetchType.EAGER)
     private List<Result> results;
 
+    /**
+     * Calculate the age group of the participant based on the age.
+     */
     public void calculateAndSetAgeGroup() {
         if (age >= 6 && age <= 9) {
             this.ageGroup = AgeGroup.KIDS;

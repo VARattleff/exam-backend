@@ -21,10 +21,19 @@ public class ParticipantService {
         this.diciplineRepository = diciplineRepository;
     }
 
+    /**
+     * Find all participants
+     * @return List of ParticipantDTO
+     */
     public List<ParticipantDTO> findAll() {
         return participantRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
     }
 
+    /**
+     * Find participant by id
+     * @param id Long
+     * @return Optional of ParticipantDTO
+     */
     public Optional<ParticipantDTO> findById(Long id) {
         if (id == null || id < 0) {
             throw new ValidationException("Id must be provided");
@@ -39,8 +48,11 @@ public class ParticipantService {
         return participantOptional.map(this::toDTO);
     }
 
-
-
+    /**
+     * Create a new participant
+     * @param participantDTO ParticipantDTO
+     * @return ParticipantDTO
+     */
     public ParticipantDTO createParticipant(ParticipantDTO participantDTO) {
         if (
                 participantDTO.getFullName() == null ||
@@ -68,40 +80,11 @@ public class ParticipantService {
         return toDTO(participant);
     }
 
-    public ParticipantDTO toDTO(Participant participant) {
-        ParticipantDTO participantDTO = new ParticipantDTO();
-        participantDTO.setId(participant.getId());
-        participantDTO.setFullName(participant.getFullName());
-        participantDTO.setAge(participant.getAge());
-        participantDTO.setGender(participant.getGender());
-        participantDTO.setAdjacentClub(participant.getAdjacentClub());
-        participantDTO.setAgeGroup(participant.getAgeGroup());
-        participantDTO.setCountry(participant.getCountry());
-
-
-        participantDTO.setDisciplines(participant.getDisciplines().stream().map(discipline -> {
-            DisciplineDTO disciplineDTO = new DisciplineDTO();
-            disciplineDTO.setId(discipline.getId());
-            disciplineDTO.setName(discipline.getName());
-            disciplineDTO.setDescription(discipline.getDescription());
-            disciplineDTO.setResultsType(discipline.getResultsType());
-            return disciplineDTO;
-        }).collect(Collectors.toList()));
-
-        return participantDTO;
-    }
-
-    public Participant toEntity(ParticipantDTO participantDTO) {
-        Participant participant = new Participant();
-        participant.setId(participantDTO.getId());
-        participant.setFullName(participantDTO.getFullName());
-        participant.setAge(participantDTO.getAge());
-        participant.setGender(participantDTO.getGender());
-        participant.setAdjacentClub(participantDTO.getAdjacentClub());
-        participant.setCountry(participantDTO.getCountry());
-        return participant;
-    }
-
+    /**
+     * Delete participant by id
+     * @param id Long
+     * @return ParticipantDTO
+     */
     public ParticipantDTO deleteParticipant(Long id) {
         Participant participant = participantRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Participant not found, provided id: " + id));
@@ -110,6 +93,12 @@ public class ParticipantService {
         return participantDTO;
     }
 
+    /**
+     * Update participant by id
+     * @param id Long
+     * @param participantDTO ParticipantDTO
+     * @return ParticipantDTO
+     */
     public ParticipantDTO updateParticipant(Long id, ParticipantDTO participantDTO) {
         Participant existingParticipant = participantRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Participant not found, provided id: " + id));
@@ -137,5 +126,49 @@ public class ParticipantService {
         participantRepository.save(participantToUpdate);
 
         return toDTO(participantToUpdate);
+    }
+
+    /**
+     * Convert Participant to ParticipantDTO
+     * @param participant Participant
+     * @return ParticipantDTO
+     */
+    public ParticipantDTO toDTO(Participant participant) {
+        ParticipantDTO participantDTO = new ParticipantDTO();
+        participantDTO.setId(participant.getId());
+        participantDTO.setFullName(participant.getFullName());
+        participantDTO.setAge(participant.getAge());
+        participantDTO.setGender(participant.getGender());
+        participantDTO.setAdjacentClub(participant.getAdjacentClub());
+        participantDTO.setAgeGroup(participant.getAgeGroup());
+        participantDTO.setCountry(participant.getCountry());
+
+
+        participantDTO.setDisciplines(participant.getDisciplines().stream().map(discipline -> {
+            DisciplineDTO disciplineDTO = new DisciplineDTO();
+            disciplineDTO.setId(discipline.getId());
+            disciplineDTO.setName(discipline.getName());
+            disciplineDTO.setDescription(discipline.getDescription());
+            disciplineDTO.setResultsType(discipline.getResultsType());
+            return disciplineDTO;
+        }).collect(Collectors.toList()));
+
+        return participantDTO;
+    }
+
+    /**
+     * Convert ParticipantDTO to Participant
+     * @param participantDTO ParticipantDTO
+     * @return Participant
+     */
+    public Participant toEntity(ParticipantDTO participantDTO) {
+        Participant participant = new Participant();
+        participant.setId(participantDTO.getId());
+        participant.setFullName(participantDTO.getFullName());
+        participant.setAge(participantDTO.getAge());
+        participant.setGender(participantDTO.getGender());
+        participant.setAdjacentClub(participantDTO.getAdjacentClub());
+        participant.setCountry(participantDTO.getCountry());
+        return participant;
     }
 }
