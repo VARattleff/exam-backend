@@ -2,5 +2,8 @@ package test.exambackend.participant;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ParticipantRepository extends JpaRepository<Participant, Long>{
+import java.util.List;
+
+public interface ParticipantRepository extends JpaRepository<Participant, Long> {
+    List<Participant> findByDisciplinesId(Long disciplineId);
 }

@@ -7,7 +7,6 @@ import lombok.Setter;
 import test.exambackend.discipline.Discipline;
 import test.exambackend.result.Result;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 

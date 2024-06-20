@@ -1,7 +1,9 @@
 package test.exambackend.discipline;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/disciplines")
@@ -12,14 +14,40 @@ public class DisciplineController {
         this.disciplineService = disciplineService;
     }
 
-    //todo get all disciplines
+    /**
+     * Get all disciplines
+     * @return List of all disciplines
+     */
+    @GetMapping
+    public ResponseEntity<List<DisciplineDTO>> findAll() {
+        return ResponseEntity.ok(disciplineService.findAll());
+    }
 
-    //todo get discipline by id
+    /**
+     * Get discipline by id
+     * @return Discipline with the given id
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<DisciplineDTO> findById(@PathVariable  Long id) {
+        return ResponseEntity.of(disciplineService.findById(id));
+    }
 
-    //todo create discipline
+    /**
+     * Create a new discipline
+     * @return Discipline created
+     */
+    @PostMapping
+    public ResponseEntity<DisciplineDTO> createDiscipline(@RequestBody DisciplineDTO disciplineDTO) {
+        return ResponseEntity.status(201).body(disciplineService.createDiscipline(disciplineDTO));
+    }
 
-    //todo delete discipline
-
-    //todo update discipline
+    /**
+     * Delete a discipline
+     * @return Discipline deleted
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<DisciplineDTO> updateDiscipline(@PathVariable Long id, @RequestBody DisciplineDTO disciplineDTO) {
+        return ResponseEntity.ok(disciplineService.updateDiscipline(id, disciplineDTO));
+    }
 
 }
