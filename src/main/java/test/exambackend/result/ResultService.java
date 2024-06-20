@@ -56,7 +56,7 @@ public class ResultService {
      * @param result Result
      * @return String
      */
-    private String generateResultValue(Result result) {
+    public String generateResultValue(Result result) {
         switch (result.getDiscipline().getResultsType()) {
             case TIME:
                 return result.getHours() + ":" + result.getMinutes() + ":" + result.getSeconds() + "." + result.getHundredths();
@@ -78,7 +78,7 @@ public class ResultService {
      * @param reqResultDTO ReqResultDTO
      * @param result Result
      */
-    private void validateAndSetParticipantAndDiscipline(ReqResultDTO reqResultDTO, Result result) {
+     void validateAndSetParticipantAndDiscipline(ReqResultDTO reqResultDTO, Result result) {
         if (reqResultDTO == null) {
             throw new ValidationException("Request body cannot be null");
         }
