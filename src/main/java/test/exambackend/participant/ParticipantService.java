@@ -28,11 +28,11 @@ public class ParticipantService {
     public void validateParticipantDTO(ParticipantDTO participantDTO) {
         if (
                 participantDTO.getFullName() == null ||
-                        participantDTO.getFullName().isEmpty() ||
-                        participantDTO.getAge() < 0 ||
-                        participantDTO.getGender() == null ||
-                        participantDTO.getAdjacentClub() == null ||
-                        participantDTO.getCountry() == null
+                participantDTO.getFullName().isEmpty() ||
+                participantDTO.getAge() < 0 ||
+                participantDTO.getGender() == null ||
+                participantDTO.getAdjacentClub() == null ||
+                participantDTO.getCountry() == null
         ) {
             throw new ValidationException("fullName, age, gender, adjacentClub and country must be provided");
         }
