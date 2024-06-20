@@ -1,4 +1,3 @@
-// ResultDTO.java
 package test.exambackend.result;
 
 import lombok.Getter;
